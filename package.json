@@ -16,6 +16,7 @@
     "babel-loader": "^8.0.6",
     "express": "^4.17.1",
     "react-dom": "^16.9.0",
+    "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {

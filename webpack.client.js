@@ -1,30 +1,18 @@
 const path = require('path');
 const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
+const merge = require('webpack-merge');
+const baseConfig = require('./webpack.base.js');
 
-module.exports = {
+const clientConfig = {
   mode: 'development',
   entry: './src/client/index.js',
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, 'public')
   },
-  module: {
-    rules: [
-      {
-        test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-react', ['@babel/env', {
-            targets: {
-              browsers: ['last 2 versions']
-            }
-          }]]
-        }
-      }
-    ],
-  },
   plugins: [
     new CleanWebpackPlugin()
   ],
 };
+
+module.exports = merge(baseConfig, clientConfig);

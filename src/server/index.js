@@ -2,7 +2,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const express = require('express');
 const app = express();
-import Home from './containers/Home'
+import Home from '../client/containers/Home'
 const port = 3000;
 
 const content = ReactDOMServer.renderToString(<Home />);
