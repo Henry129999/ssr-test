@@ -1,7 +1,7 @@
 import React from 'react';
 
 function handleClick() {
-  return <alert>click</alert>
+  console.log('1111', 1111);
 }
 
 function home () {

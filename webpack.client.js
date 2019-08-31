@@ -1,16 +1,13 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  target: "node",
-  entry: './src/index.js',
+  entry: './src/client/index.js',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, 'build')
+    filename: "index.js",
+    path: path.resolve(__dirname, 'public')
   },
-  externals: [nodeExternals()],
   module: {
     rules: [
       {

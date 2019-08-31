@@ -6,7 +6,6 @@
 .idea/modules.xml
 .idea/ssr-test.iml
 .idea/vcs.xml
-client/
 node_modules/
 build
 
