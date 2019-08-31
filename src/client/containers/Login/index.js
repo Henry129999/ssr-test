@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 function Login () {
   return (
     <div>
-      登陆页
+      <p>登陆页</p>
+      <Link to='/'>首页</Link>
     </div>
   )
 }
