@@ -7,10 +7,14 @@ const port = 3000;
 
 const content = ReactDOMServer.renderToString(<Home />);
 
+// 服务器请求静态文件，就是根目录public中无寻找
+app.use(express.static('public'));
+
 app.get('/', (req, res) => res.send(`
   <html lang="utf-8">
     <header><title>ssr</title></header>
     <body>${content}</body>
+    <script src="index.js"></script>
   </html>  
   `));
 
