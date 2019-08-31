@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from "../../components/Header";
 import { connect } from 'react-redux';
 import { addName } from '../../action/user';
+import { getUserInfo } from '../../action/user';
 
 class Home extends Component {
   constructor(props){
@@ -10,6 +11,10 @@ class Home extends Component {
       age: 12,
     }
     console.log('props', props);
+  }
+
+  componentDidMount() {
+    this.props.getUserInfo();
   }
 
   handleClick = () => {
@@ -39,4 +44,9 @@ const mapStateToProps = state => {
     user: state.user,
   }
 };
-export default connect(mapStateToProps, null)(Home);
+const mapDispatchToProps = (dispatch) => ({
+  getUserInfo() {
+    dispatch(getUserInfo())
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
