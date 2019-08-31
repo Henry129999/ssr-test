@@ -3,15 +3,13 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-react', ['@babel/env', {
-            targets: {
-              browsers: ['last 2 versions']
-            }
-          }]]
-        }
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          }
+        }]
       }
     ],
   },

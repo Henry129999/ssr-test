@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Header from "../../components/Header";
 import { connect } from 'react-redux';
 import { addName } from '../../action/user';
 
+class Home extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      age: 12,
+    }
+    console.log('props', props);
+  }
 
-function Home (props) {
-  console.log('props', props);
-
-  function handleClick() {
+  handleClick = () => {
     console.log('1111', 1111);
-  }
+  };
 
-  function handleAddName() {
-    const { dispatch } = props;
+  handleAddName = () => {
+    const { dispatch } = this.props;
     dispatch(addName('hao'));
-  }
+  };
 
-  return <div>
-    <Header />
-    ssr-test1
-    <button onClick={handleClick}>click</button>
-    <button onClick={handleAddName}>addName</button>
-  </div>
+  render() {
+    const { age } = this.state;
+
+    return <div>
+      <Header />
+      ssr-test1, age: { age }
+      <button onClick={this.handleClick}>click</button>
+      <button onClick={this.handleAddName}>addName</button>
+    </div>
+  }
 }
 
 const mapStateToProps = state => {
