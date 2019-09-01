@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import getStore from '../client/store';
 
 const render = (req) => {
+  console.log('req.path', req.path);
   const store = getStore();
   /** 根据路由的路径，往store中添加数据 */
   const matchRoutes = [];
@@ -27,7 +28,7 @@ const render = (req) => {
       </StaticRouter>
     </Provider>
   );
-  return (`<html lang="utf-8"><header><title>ssr</title></header><body><div id="root">${content}</div></body><script src="index.js"></script></html>`);
+  return (`<html lang="utf-8"><header><link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /><title>ssr</title></header><body><div id="root">${content}</div></body><script src="index.js"></script></html>`);
 };
 
 export default render;
