@@ -16,14 +16,22 @@ const newsList = (list) => {
   }
 };
 
-export const getUserInfo = () => {
-    // http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE
-    return (dispatch) => {
-      return axios.get('/api/news.json?secret=PP87ANTIPIRATE')
-        .then(res=> {
-          if (res) {
-            dispatch(newsList((res.data || {}).data || []));
-          }
-        })
-    }
+export const getUserInfo = (server) => {
+  // http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE
+  // 区分环境
+  let url = '';
+  if (server) {
+    url= 'http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE';
+  } else {
+    url = '/api/news.json?secret=PP87ANTIPIRATE';
+  }
+
+  return (dispatch) => {
+    return axios.get(url)
+      .then(res=> {
+        if (res) {
+          dispatch(newsList((res.data || {}).data || []));
+        }
+      })
+  }
 };

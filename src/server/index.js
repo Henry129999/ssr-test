@@ -22,19 +22,19 @@ app.use('/api', proxy('http://47.95.113.63', {
 
 app.get('*', (req, res) => {
   const store = getStore();
-  // /** 根据路由的路径，往store中添加数据 */
-  //   // 匹配路由下的所有组件
-  // const matchedRoutes = matchRoutes(routes, req.path) || [];
-  // // 让matchRoutes里面的所有组件，对应的loadData都执行一次
-  // const promises = [];
-  // matchedRoutes.forEach(item => {
-  //   if (item.route.loadData) promises.push(item.route.loadData(store))
-  // });
-  //
-  // Promise.all(promises)
-  //   .then(() => {
+  /** 根据路由的路径，往store中添加数据 */
+    // 匹配路由下的所有组件
+  const matchedRoutes = matchRoutes(routes, req.path) || [];
+  // 让matchRoutes里面的所有组件，对应的loadData都执行一次
+  const promises = [];
+  matchedRoutes.forEach(item => {
+    if (item.route.loadData) promises.push(item.route.loadData(store))
+  });
+
+  Promise.all(promises)
+    .then(() => {
       res.send(utils(store, routes, req));
-    // });
+    });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
