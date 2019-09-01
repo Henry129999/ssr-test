@@ -1,6 +1,7 @@
 import React from 'react';
 const ReactDOMServer = require('react-dom/server');
-const { StaticRouter, matchPath } = require('react-router-dom');
+const { StaticRouter } = require('react-router-dom');
+import { matchRoutes } from "react-router-config";
 import { Route } from 'react-router-dom';
 import routes from '../routes';
 import { Provider } from 'react-redux';
@@ -10,14 +11,10 @@ const render = (req) => {
   console.log('req.path', req.path);
   const store = getStore();
   /** 根据路由的路径，往store中添加数据 */
-  const matchRoutes = [];
   // 匹配路由下的所有组件
-  routes.some(route => {
-    const match = matchPath(req.path, route);
-    if (match && route.loadData) matchRoutes.push(route);
-  });
+  const matchedRoutes = matchRoutes(routes, req.path);
+  console.log('matchedRoutes', matchedRoutes);
   // 让matchRoutes里面的所有组件，对应的loadData都执行一次
-  console.log('matchRoutes', matchRoutes);
 
   const content = ReactDOMServer.renderToString(
     <Provider store={store}>
