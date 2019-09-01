@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from "../../components/Header";
 import { connect } from 'react-redux';
 import { addName } from '../../action/user';
 import { getUserInfo } from '../../action/user';
@@ -36,7 +35,6 @@ class Home extends Component {
     console.log('newsList', newsList);
 
     return <div>
-      <Header />
       ssr-test1, age: { age }
       <div>
         {newsList.map((item) => <div key={item.id}>{item.title}</div>)}

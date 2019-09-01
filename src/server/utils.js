@@ -1,7 +1,7 @@
 import React from 'react';
 const ReactDOMServer = require('react-dom/server');
 const { StaticRouter } = require('react-router-dom');
-import { Route } from 'react-router-dom';
+import { renderRoutes } from "react-router-config";
 import { Provider } from 'react-redux';
 
 const render = (store, routes, req) => {
@@ -9,7 +9,7 @@ const render = (store, routes, req) => {
     <Provider store={store}>
       <StaticRouter location={req.path} context={{}}>
         <div>
-          { routes.map(item => <Route {...item} />) }
+          { renderRoutes(routes) }
         </div>
       </StaticRouter>
     </Provider>
