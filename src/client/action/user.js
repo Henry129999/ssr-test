@@ -1,4 +1,6 @@
 import axios from 'axios';
+export const ADD_NAME = 'ADD_NAME';
+export const ADD_NEWS_LIST = 'ADD_NEWS_LIST';
 
 export const addName = text => {
   return {
@@ -7,11 +9,20 @@ export const addName = text => {
   }
 };
 
+const newsList = (list) => {
+  return {
+    type: 'ADD_NEWS_LIST',
+    data: list,
+  }
+};
+
 export const getUserInfo = () => {
-    return () => {
+    return (dispatch) => {
       axios.get('http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE')
         .then(res=> {
-          console.log('res', res);
+          if (res) {
+            dispatch(newsList((res.data || {}).data || []));
+          }
         })
     }
-}
+};

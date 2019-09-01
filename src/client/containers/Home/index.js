@@ -10,11 +10,12 @@ class Home extends Component {
     this.state = {
       age: 12,
     }
-    console.log('props', props);
   }
 
   componentDidMount() {
-    this.props.getUserInfo();
+    const { dispatch } = this.props;
+    dispatch(getUserInfo());
+
   }
 
   handleClick = () => {
@@ -44,9 +45,5 @@ const mapStateToProps = state => {
     user: state.user,
   }
 };
-const mapDispatchToProps = (dispatch) => ({
-  getUserInfo() {
-    dispatch(getUserInfo())
-  }
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+export default connect(mapStateToProps)(Home);
