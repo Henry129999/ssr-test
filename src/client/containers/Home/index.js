@@ -14,8 +14,10 @@ class Home extends Component {
 
   // componentDidMount在服务器端上是不执行的，所有在服务器端上不会发送请求
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(getUserInfo());
+    const { dispatch, user } = this.props;
+    if (!user.newsList.length) {
+      dispatch(getUserInfo());
+    }
   }
 
   handleClick = () => {
@@ -36,9 +38,9 @@ class Home extends Component {
     return <div>
       <Header />
       ssr-test1, age: { age }
-      <p>
-        {newsList.map((item) => <span key={item.id}>{item.title}</span>)}
-      </p>
+      <div>
+        {newsList.map((item) => <div key={item.id}>{item.title}</div>)}
+      </div>
       <button onClick={this.handleClick}>click</button>
       <button onClick={this.handleAddName}>addName</button>
     </div>

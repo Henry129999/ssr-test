@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 import utils from './utils';
-import getStore from "../client/store";
+import { getStore } from "../client/store";
 import {matchRoutes} from "react-router-config";
 import routes from "../routes";
 

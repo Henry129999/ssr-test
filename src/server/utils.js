@@ -14,7 +14,17 @@ const render = (store, routes, req) => {
       </StaticRouter>
     </Provider>
   );
-  return `<html lang="utf-8"><header><link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /><title>ssr</title></header><body><div id="root">${content}</div></body><script src="index.js"></script></html>`;
+  return `<html lang="utf-8">
+<header>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<title>ssr</title>
+</header>
+<body>
+<div id="root">${content}</div>
+</body>
+<script>window.context=${JSON.stringify({state: store.getState()})}</script>
+<script src="index.js"></script>
+</html>`;
 };
 
 export default render;
