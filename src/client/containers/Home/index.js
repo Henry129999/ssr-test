@@ -12,10 +12,10 @@ class Home extends Component {
     }
   }
 
+  // componentDidMount在服务器端上是不执行的，所有在服务器端上不会发送请求
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getUserInfo());
-
   }
 
   handleClick = () => {
@@ -28,16 +28,26 @@ class Home extends Component {
   };
 
   render() {
+    const { user = {} } = this.props;
+    const { newsList = [] } = user;
     const { age } = this.state;
+    console.log('newsList', newsList);
 
     return <div>
       <Header />
       ssr-test1, age: { age }
+      <p>
+        {newsList.map((item) => <span key={item.id}>{item.title}</span>)}
+      </p>
       <button onClick={this.handleClick}>click</button>
       <button onClick={this.handleAddName}>addName</button>
     </div>
   }
 }
+
+Home.loadData = () => {
+  // 负责在服务器端渲染前，把这个路由需要的数据提前加载好
+};
 
 const mapStateToProps = state => {
   console.log('state', state);
@@ -45,5 +55,4 @@ const mapStateToProps = state => {
     user: state.user,
   }
 };
-
 export default connect(mapStateToProps)(Home);
