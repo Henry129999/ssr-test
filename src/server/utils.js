@@ -9,8 +9,8 @@ import getStore from '../client/store';
 const render = (req) => {
   const store = getStore();
   /** 根据路由的路径，往store中添加数据 */
-    // inside a request
   const matchRoutes = [];
+  // 匹配路由下的所有组件
   routes.some(route => {
     const match = matchPath(req.path, route);
     if (match && route.loadData) matchRoutes.push(route);
