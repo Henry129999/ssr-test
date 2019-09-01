@@ -7,7 +7,7 @@ const routes = [
     path: "/",
     component: Home,
     exact: true,
-    loadData: () => Home.loadData(),
+    loadData: Home.loadData,
     key: 'home',
   }, {
     path: "/login",

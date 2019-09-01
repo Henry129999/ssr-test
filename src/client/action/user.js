@@ -18,7 +18,7 @@ const newsList = (list) => {
 
 export const getUserInfo = () => {
     return (dispatch) => {
-      axios.get('http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE')
+      return axios.get('http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE')
         .then(res=> {
           if (res) {
             dispatch(newsList((res.data || {}).data || []));
