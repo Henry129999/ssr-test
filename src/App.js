@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from "./client/components/Header";
 import { renderRoutes } from "react-router-config";
-import routes from "./routes";
 
+// props.route.routes 接受的是当前层级的路由的url
 const App = (props) => {
   return (
     <div>

@@ -1,23 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addName } from '../../action/user';
-import { getUserInfo } from '../../action/user';
+import {
+  addName, getUserInfo, actionLogin, actionLogout, actionGetLoginStatus,
+  actionGetTranslationList,
+} from '../../action/user';
+import { Link } from "react-router-dom";
+// import styles from './Home.css';
 
 class Home extends Component {
   constructor(props){
     super(props);
+    console.log('props2222', props);
     this.state = {
-      age: 12,
+      translationList: [],
     }
   }
 
   // componentDidMount在服务器端上是不执行的，所有在服务器端上不会发送请求
   componentDidMount() {
-    const { dispatch, user } = this.props;
-    if (!user.newsList.length) {
+    const { dispatch, user: { newsList, login } } = this.props;
+    if (!newsList.length) {
       dispatch(getUserInfo());
     }
+    if (login) {
+      this.handleGetNewsList();
+    }
   }
+
+  handleGetNewsList = () => {
+    const { dispatch } = this.props;
+    dispatch(actionGetTranslationList())
+      .then(res => {
+        console.log('res.data', res.data);
+        this.setState({
+          translationList: res.data || [],
+        })
+      })
+  };
 
   handleClick = () => {
     console.log('1111', 1111);
@@ -28,19 +47,45 @@ class Home extends Component {
     dispatch(addName('hao'));
   };
 
+  handleLogin = () => {
+    const { dispatch } = this.props;
+    dispatch(actionGetLoginStatus())
+      .then(res => {
+        if (res) {
+          dispatch(actionLogin());
+          this.handleGetNewsList();
+        }
+      });
+  };
+
+  handleLogout = () => {
+    const { dispatch } = this.props;
+    dispatch(actionLogout());
+  };
+
   render() {
     const { user = {} } = this.props;
-    const { newsList = [] } = user;
-    const { age } = this.state;
-    console.log('newsList', newsList);
+    const { newsList = [], login } = user;
+    const { translationList } = this.state;
 
     return <div>
-      ssr-test1, age: { age }
+      <p>首页</p>
       <div>
         {newsList.map((item) => <div key={item.id}>{item.title}</div>)}
       </div>
       <button onClick={this.handleClick}>click</button>
       <button onClick={this.handleAddName}>addName</button>
+      <p>------------------------------------------------</p>
+      { login
+        ? <div onClick={this.handleLogout}>退出</div>
+        : <div onClick={this.handleLogin}>登陆</div> }
+      <br/>
+      <p>-----------------------新闻列表-------------------------</p>
+      { login && translationList.map(item => (
+        <p key={item.id}>{item.title}</p>
+      )) }
+      <p>-----------------------新闻列表-------------------------</p>
+      <br/>
     </div>
   }
 }

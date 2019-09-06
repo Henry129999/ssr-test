@@ -1,1 +1,7 @@
 1 服务器端无法执行component的代码，所有异步获取的数据拿不到
+
+
+查询登陆接口 /api/isLogin.json
+登陆接口 /api/login.json
+登出接口 /api/logout.json
+翻译接口 /api/translations.json

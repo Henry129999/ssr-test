@@ -21,8 +21,7 @@ const routes = [{
       key: 'login',
     },
   ]
-}
-];
+}];
 
 
 
