@@ -16,7 +16,7 @@ class Home extends Component {
 
   componentWillMount() {
     const { staticContext } = this.props;
-    staticContext && (staticContext.__css = styles._getCss());
+    staticContext && (staticContext.__css.push(styles._getCss()));
   }
 
   // componentDidMount在服务器端上是不执行的，所有在服务器端上不会发送请求
@@ -79,7 +79,7 @@ class Home extends Component {
           ? <div className={styles.login} onClick={this.handleLogout}>退出</div>
           : <div className={styles.login} onClick={this.handleLogin}>登陆</div> }
         <br/>
-        <p>-----------------------新闻列表-------------------------</p>
+        <p className={styles.box}>-----------------------新闻列表-------------------------</p>
         { login && translationList.map(item => (
           <p key={item.id}>{item.title}</p>
         )) }

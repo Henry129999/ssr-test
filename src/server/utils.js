@@ -14,7 +14,7 @@ const render = (store, routes, req, context) => {
       </StaticRouter>
     </Provider>
   );
-  const css = context.__css;
+  const css = context.__css.length ? context.__css.join('\n') : '';
   return `<html lang="utf-8">
 <header>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
