@@ -41,7 +41,12 @@ app.get('*', (req, res) => {
   // 让matchRoutes里面的所有组件，对应的loadData都执行一次
   const promises = [];
   matchedRoutes.forEach(item => {
-    if (item.route.loadData) promises.push(item.route.loadData(store))
+    if (item.route.loadData) {
+      const promise = new Promise((resolve, reject) => {
+        item.route.loadData(store).then(resolve).catch(resolve);
+      });
+      promises.push(promise);
+    }
   });
 
   Promise.all(promises)
