@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 import styles from './Header.css';
+import DrawStyle from "../DrawStyle";
 
 class Header extends Component {
   componentWillMount() {
@@ -18,4 +20,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default connect()(DrawStyle(Header, styles));

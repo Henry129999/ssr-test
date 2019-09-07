@@ -5,6 +5,7 @@ import {
   actionGetTranslationList,
 } from '../../action/user';
 import styles from './Home.css';
+import DrawStyle from '../../DrawStyle';
 
 class Home extends Component {
   constructor(props){
@@ -100,4 +101,4 @@ const mapStateToProps = state => {
     user: state.user,
   }
 };
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(DrawStyle(Home, styles));
