@@ -5,7 +5,7 @@ import {
   actionGetTranslationList,
 } from '../../action/user';
 import { Link } from "react-router-dom";
-// import styles from './Home.css';
+import styles from './Home.css';
 
 class Home extends Component {
   constructor(props){
@@ -72,8 +72,8 @@ class Home extends Component {
         <button onClick={this.handleAddName}>addName</button>
         <p>------------------------------------------------</p>
         { login
-          ? <div onClick={this.handleLogout}>退出</div>
-          : <div onClick={this.handleLogin}>登陆</div> }
+          ? <div className={styles.login} onClick={this.handleLogout}>退出</div>
+          : <div className={styles.login} onClick={this.handleLogin}>登陆</div> }
         <br/>
         <p>-----------------------新闻列表-------------------------</p>
         { login && translationList.map(item => (
