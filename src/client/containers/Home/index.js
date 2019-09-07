@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 class Home extends Component {
   constructor(props){
     super(props);
-    console.log('props2222', props);
     this.state = {
       translationList: [],
     }
@@ -31,15 +30,10 @@ class Home extends Component {
     const { dispatch } = this.props;
     dispatch(actionGetTranslationList())
       .then(res => {
-        console.log('res.data', res.data);
         this.setState({
           translationList: res.data || [],
         })
       })
-  };
-
-  handleClick = () => {
-    console.log('1111', 1111);
   };
 
   handleAddName = () => {
@@ -52,8 +46,10 @@ class Home extends Component {
     dispatch(actionGetLoginStatus())
       .then(res => {
         if (res) {
-          dispatch(actionLogin());
-          this.handleGetNewsList();
+          dispatch(actionLogin())
+            .then(() => {
+              this.handleGetNewsList();
+            });
         }
       });
   };
@@ -68,25 +64,25 @@ class Home extends Component {
     const { newsList = [], login } = user;
     const { translationList } = this.state;
 
-    return <div>
-      <p>首页</p>
+    return (
       <div>
-        {newsList.map((item) => <div key={item.id}>{item.title}</div>)}
+        <div>
+          {newsList.map((item) => <div key={item.id}>{item.title}</div>)}
+        </div>
+        <button onClick={this.handleAddName}>addName</button>
+        <p>------------------------------------------------</p>
+        { login
+          ? <div onClick={this.handleLogout}>退出</div>
+          : <div onClick={this.handleLogin}>登陆</div> }
+        <br/>
+        <p>-----------------------新闻列表-------------------------</p>
+        { login && translationList.map(item => (
+          <p key={item.id}>{item.title}</p>
+        )) }
+        <p>-----------------------新闻列表-------------------------</p>
+        <br/>
       </div>
-      <button onClick={this.handleClick}>click</button>
-      <button onClick={this.handleAddName}>addName</button>
-      <p>------------------------------------------------</p>
-      { login
-        ? <div onClick={this.handleLogout}>退出</div>
-        : <div onClick={this.handleLogin}>登陆</div> }
-      <br/>
-      <p>-----------------------新闻列表-------------------------</p>
-      { login && translationList.map(item => (
-        <p key={item.id}>{item.title}</p>
-      )) }
-      <p>-----------------------新闻列表-------------------------</p>
-      <br/>
-    </div>
+    )
   }
 }
 

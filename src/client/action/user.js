@@ -26,9 +26,8 @@ const newsList = (list) => {
 export const getUserInfo = () => {
   // http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE
   return (dispatch, getState, instanceAxios) => {
-    console.log('getState', getState()); // 获取store中的state
     return instanceAxios.get('/api/news.json?secret=PP87ANTIPIRATE')
-      .then(res=> {
+      .then((res) => {
         if (res) {
           dispatch(newsList((res.data || {}).data || []));
         }
@@ -38,11 +37,9 @@ export const getUserInfo = () => {
 
 export const actionLogin = () => {
   return (dispatch, getState, instanceAxios) => {
-    console.log('getState', getState()); // 获取store中的state
     return instanceAxios.get('/api/login.json?secret=PP87ANTIPIRATE')
-      .then(res=> {
+      .then((res) => {
         if (res) {
-          console.log('login', res);
           dispatch(userLoginStatus(true));
         }
       })
@@ -51,9 +48,8 @@ export const actionLogin = () => {
 
 export const actionLogout = () => {
   return (dispatch, getState, instanceAxios) => {
-    console.log('getState', getState()); // 获取store中的state
     return instanceAxios.get('/api/logout.json?secret=PP87ANTIPIRATE')
-      .then(res=> {
+      .then((res) => {
         if (res) {
           dispatch(userLoginStatus(false));
         }
@@ -63,9 +59,13 @@ export const actionLogout = () => {
 
 export const actionGetLoginStatus = () => {
   return (dispatch, getState, instanceAxios) => {
-    console.log('getState', getState()); // 获取store中的state
     return instanceAxios.get('/api/isLogin.json?secret=PP87ANTIPIRATE')
-      .then((res)=> {
+      .then((res) => {
+        if (res.data.data.login) {
+          dispatch(userLoginStatus(true))
+        } else {
+          dispatch(userLoginStatus(false))
+        }
         return res.data || {};
       })
   }
@@ -73,9 +73,8 @@ export const actionGetLoginStatus = () => {
 
 export const actionGetTranslationList = () => {
   return (dispatch, getState, instanceAxios) => {
-    console.log('getState', getState()); // 获取store中的state
     return instanceAxios.get('/api/translations.json?secret=PP87ANTIPIRATE')
-      .then((res)=> {
+      .then((res) => {
         return res.data || {};
       })
   }

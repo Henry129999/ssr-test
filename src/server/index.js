@@ -15,13 +15,12 @@ app.use(express.static('public'));
 // proxy代理
 app.use('/api', proxy('http://47.95.113.63', {
   proxyReqPathResolver: function (req) {
-    console.log('req.url', req.url);
     return '/ssr/api' + req.url;
   }
 }));
 
 app.get('*', (req, res) => {
-  const store = getStore();
+  const store = getStore(req);
   /** 根据路由的路径，往store中添加数据 */
     // 匹配路由下的所有组件
   const matchedRoutes = matchRoutes(routes, req.path) || [];

@@ -4,8 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import clientAxios from './request';
 import serverAxios from '../server/request';
 
-export const getStore = () => {
-  return createStore(todoApp, applyMiddleware(thunk.withExtraArgument(serverAxios)));
+export const getStore = (req) => {
+  return createStore(todoApp, applyMiddleware(thunk.withExtraArgument(serverAxios(req))));
 };
 
 export const getClientStore = () => {

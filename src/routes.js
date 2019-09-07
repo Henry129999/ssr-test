@@ -6,6 +6,7 @@ import App from './App';
 const routes = [{
   path: '/',
   component: App,
+  loadData: App.loadData,
   key: 'app',
   routes: [
     {
