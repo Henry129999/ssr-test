@@ -4,7 +4,6 @@ import {
   addName, getUserInfo, actionLogin, actionLogout, actionGetLoginStatus,
   actionGetTranslationList,
 } from '../../action/user';
-import { Link } from "react-router-dom";
 import styles from './Home.css';
 
 class Home extends Component {
@@ -13,6 +12,11 @@ class Home extends Component {
     this.state = {
       translationList: [],
     }
+  }
+
+  componentWillMount() {
+    const { staticContext } = this.props;
+    staticContext && (staticContext.__css = styles._getCss());
   }
 
   // componentDidMount在服务器端上是不执行的，所有在服务器端上不会发送请求
