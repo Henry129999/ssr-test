@@ -3,6 +3,8 @@ const express = require('express');
 const proxy = require('express-http-proxy');
 const app = express();
 const port = 3000;
+const path = require('path');
+const fs = require('fs');
 
 import utils from './utils';
 import { getStore } from "../client/store";
@@ -13,6 +15,18 @@ import routes from "../routes";
 app.use(express.static('public'));
 
 // proxy代理
+app.use('/favicon.ico', function(req, res) {
+  //设置请求的返回头type,content的type类型列表见上面
+  // res.setHeader("Content-Type", contentType);
+  //格式必须为 binary 否则会出错
+  // console.log('path', __dirname + './images/favicon.png');
+  // const content = fs.readFileSync(path.dirname( __dirname + 'images/favicon.png'));
+  // res.writeHead(200, "Ok");
+  // res.write(content);
+  // res.end();
+});
+
+// favicon的使用
 app.use('/api', proxy('http://47.95.113.63', {
   proxyReqPathResolver: function (req) {
     return '/ssr/api' + req.url;
@@ -32,7 +46,11 @@ app.get('*', (req, res) => {
 
   Promise.all(promises)
     .then(() => {
-      res.send(utils(store, routes, req));
+      const context = {};
+      const html = utils(store, routes, req, context);
+      console.log('context', context);
+      if (context.NOT_FOUND) res.status(404);
+      res.send(html);
     });
 });
 

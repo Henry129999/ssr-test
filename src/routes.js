@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './client/containers/Home/index';
 import Login from './client/containers/Login/index';
 import App from './App';
+import PageNotFound from "./client/containers/PageNotFound";
 
 const routes = [{
   path: '/',
@@ -20,7 +21,10 @@ const routes = [{
       component: Login,
       exact: true,
       key: 'login',
-    },
+    }, {
+      path: '*',
+      component: PageNotFound,
+    }
   ]
 }];
 
